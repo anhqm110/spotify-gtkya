@@ -50,8 +50,9 @@ def request_valid_song(access_token, genre=None):
     authorization_header = {"Authorization": "Bearer {}".format(access_token)}
     
     # Cap the max number of requests until getting RICK ASTLEYED
-    song = None
+    Id = None
     for i in range(51):
+    #while True:
         try:
             song_request = requests.get(
                 '{}/search?q={}{}&type=track&offset={}'.format(
@@ -63,18 +64,15 @@ def request_valid_song(access_token, genre=None):
                 headers = authorization_header
             )
             song_info = random.choice(json.loads(song_request.text)['tracks']['items'])
-            print(song_info)
-            artist = song_info['artists'][0]['name']
-            song = song_info['name']
+            Id = song_info['id']
             break
         except IndexError:
             continue
         
-    if song is None:
-        artist = "Rick Astley"
-        song = "Never Gonna Give You Up"
+    if Id is None:
+        return -1
         
-    return "{} - {}".format(artist, song)
+    return Id
 
 
 
