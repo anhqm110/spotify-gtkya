@@ -6,22 +6,24 @@
     <meta name="description" content="Polling Page" />
     <meta name="author" content="" />
     <link href="style.css" rel="stylesheet" />
+    <script src="progress_bar.js"></script>
   </head>
 
-  <body id="">
-      <div>
+  <body id="poll_body">
+      <div id="poll_content">
         <div id="artist_profile">
             <p id="artist_name">Artist Name</p>
-            <button id="play_button">play</button>
+            <button id="play_button" onclick="">play</button>
           </div>
     
           <div id="option_bar">
-            <button id="like"><span>&#10003;</span></button>
-            <button id="dislike"><span>&#x2717;</span></button>
+            <button class="option_buttons" id="like" onclick="incrementLike()"><span>&#10003;</span></button>
+            <button class="option_buttons" id="dislike" onclick="incrementDislike()"><span>&#x2717;</span></button>
           </div>
     
           <div id="completion_bar">
-    
+            <div id="my_completion_bar" style="width:1%">
+            </div>
           </div>
       </div>
   </body>

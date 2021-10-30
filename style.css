@@ -1,6 +1,7 @@
 html {
     height: 100%;
 }
+
 body {
     height: 100%;
     margin: 0;
@@ -11,7 +12,7 @@ body {
 #login_div {
     width: 40%;
     height: 30%;
-    background-color:bisque;
+    background-color:rgb(17, 104, 17);
     display: grid;
     justify-items: center;
     align-items: center;
@@ -25,4 +26,39 @@ body {
     display: grid;
     justify-items: center;
     align-items: center;
+}
+
+#poll_content {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+#artist_profile {
+    margin-bottom: 10%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+#option_bar {
+    margin: auto;
+}
+
+.option_buttons {
+    margin: 15px;
+    font-size: 30px;
+    height: 50px;
+    width: 50px;
+}
+
+#completion_bar {
+    margin-top: 30%;
+    width: 200px;
+    background-color: grey;
+}
+
+#my_completion_bar {
+    height: 30px;
+    background-color: greenyellow;
 }
