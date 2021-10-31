@@ -44,7 +44,7 @@ def login():
             else:
                 return redirect(url_for('login'))
 
-        new_user = user(username=username, password=generate_password_hash(password, method='sha256'), "", "");
+        new_user = user(username=username, password=generate_password_hash(password, method='sha256'), center1="", center2="")
 
         db.session.add(new_user)
         db.session.commit()
@@ -55,16 +55,16 @@ def login():
 
 @app.route('/poll', methods = ['GET', 'POST'])
 @login_required
-progress_val = 0
-yes_num = 0
-no_num = 0
 
-store_ids_yes = []
-
-store_ids_no = []
 
 def poll():
-    
+    progress_val = 0
+    yes_num = 0
+    no_num = 0
+
+    store_ids_yes = []
+
+    store_ids_no = []
     song_id, preview_url, image_url = get_rand_song()
     
     data = [song_id, preview_url, image_url, progress_val]
