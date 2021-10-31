@@ -35,7 +35,18 @@
     <div id="poll_content">
       <form id="poll_form" method=POST>
         <div id="song_profile">
-          <input type="button" id="play_button" value="play">
+          <audio src="{{ data[1] }}" id="curr_song"></audio>
+          <input type="button" class="song_buttons" id="play_button" onClick="playAudio()" value="play">
+          <input type="button" class="song_buttons" id="pause_button" onClick="pauseAudio()" value="pause">
+          <script>
+            function playAudio(){
+              document.getElementById("curr_song").play();
+            }
+
+            function pauseAudio(){
+              document.getElementById("curr_song").pause();
+            }
+          </script>
         </div>
   
         <div id="option_bar">
