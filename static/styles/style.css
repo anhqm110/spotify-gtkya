@@ -179,5 +179,10 @@ input#dislike:hover {
 
 .show_result {
   font-size: 3rem;
-  margin: 10px;
+}
+
+.list_user {
+  font-size: 2rem;
+  color: purple;
+  margin: 5px;
 }

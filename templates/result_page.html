@@ -13,19 +13,19 @@
     <h1 id="show_similar_taste" class="show_result">
       Friends with similar taste:
     </h1>
-    {% for good in data[0] %}
-    <tr>
-      <td>{{good[0]}}</td>
-    </tr>
+    {% for i in range(5) %}
+    <ol class="list_user">
+      <li>{{data[0][i][0]}}</li>
+    </ol>
     {% endfor %}
     <br />
     <h1 id="show_similar_distaste" class="show_result">
       Friends with similar taste:
     </h1>
-    {% for bad in data[1] %}
-    <tr>
-      <td>{{bad[0]}}</td>
-    </tr>
+    {% for i in range(5) %}
+    <ol class="list_user">
+      <li>{{data[1][i][0]}}</li>
+    </ol>
     {% endfor %}
   </body>
 </html>
