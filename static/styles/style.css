@@ -70,21 +70,58 @@ body {
   justify-items: center;
   align-items: center;
   border-radius: 25px;
-  padding-top: 4rem;
+  padding-top: 3.5rem;
+  box-shadow: 0 0 10px var(--clr-black);
 }
 
 #login_form {
   align-self: flex-start;
+  position: relative;
   display: grid;
   justify-items: center;
   align-items: center;
 }
 
 .login_class {
+  flex: 1;
+  border: none;
+  min-width: 0;
   font-size: 2rem;
   margin-bottom: 1rem;
+  border-radius: 5px;
+  padding: 3px;
+  box-shadow: 0 0 3px var(--clr-black);
 }
 
 #login_submit {
   padding: 4px;
+}
+
+button {
+  width: auto;
+  padding: 5px;
+  font-size: 2rem;
+  margin: 20px;
+}
+
+#option_bar {
+  display: flex;
+}
+
+.option_buttons {
+  background: var(--clr-primary-9);
+  color: var(--clr-grey-1);
+  border: none;
+  font-size: 10rem;
+  padding: 10px;
+  border-radius: 100%;
+  width: 210px;
+}
+
+#artist_profile {
+  display: flex;
+  align-self: flex-start;
+  position: relative;
+  justify-items: center;
+  align-items: center;
 }
