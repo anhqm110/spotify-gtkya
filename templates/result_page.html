@@ -13,19 +13,19 @@
     <h1 id="show_similar_taste" class="show_result">
       Friends with similar taste:
     </h1>
-    {% for i in range(5) %}
     <ol class="list_user">
+      {% for i in range(5) %}
       <li>{{data[0][i][0]}}</li>
+      {% endfor %}
     </ol>
-    {% endfor %}
     <br />
     <h1 id="show_similar_distaste" class="show_result">
-      Friends with similar taste:
+      Friends with similar distastes:
     </h1>
-    {% for i in range(5) %}
     <ol class="list_user">
+      {% for i in range(5) %}
       <li>{{data[1][i][0]}}</li>
+      {% endfor %}
     </ol>
-    {% endfor %}
   </body>
 </html>

@@ -152,7 +152,7 @@ def get_friends_list(center1, center2, all_data):
 
        u_cent1 = np.fromstring(u_cent1[1:-1], dtype=np.float, sep=' ')
        u_cent2 = np.fromstring(u_cent2[1:-1], dtype=np.float, sep=' ')
-
+       
        if u_cent1.shape[0] == center1.shape[0]:
           dist1.append((user.username, np.linalg.norm(center1 - u_cent1)))
        if u_cent2.shape[0] == center2.shape[0]:
@@ -161,6 +161,7 @@ def get_friends_list(center1, center2, all_data):
     dist1.sort(key=lambda i:i[1], reverse=True)
     dist2.sort(key=lambda i:i[1], reverse=True)
     
+
     return (dist1, dist2)
 
 if __name__ == '__main__':
