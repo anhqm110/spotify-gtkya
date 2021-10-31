@@ -99,6 +99,16 @@ body {
   padding: 4px;
 }
 
+#poll_form {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+#option_bar {
+  display: grid;
+}
+
 button {
   width: auto;
   padding: 5px;
@@ -106,18 +116,64 @@ button {
   margin: 20px;
 }
 
+.song_buttons {
+  font-size:2rem;
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+input#play_button:hover {
+  background-color:var(--clr-green-dark);
+  color: white;
+}
+
+input#pause_button:hover {
+  background-color:orange;
+  color: white;
+}
+
 #option_bar {
+  display: grid;
+}
+
+#like_dislike_values {
   display: flex;
+  width: 100%;
+  justify-items: center;
+  align-self: center;
+}
+
+#options {
+  width: 150%;
+  display: flex;
+  justify-items: center;
+  align-self: center;
 }
 
 .option_buttons {
   background: var(--clr-primary-9);
   color: var(--clr-grey-1);
   border: none;
-  font-size: 10rem;
+  font-size: 3rem;
   padding: 10px;
-  border-radius: 100%;
-  width: 210px;
+  margin: 10px;
+  border-radius: 50px;
+  width: 120px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+input#like:hover{
+  background-color: var(--clr-green-dark);
+  color: white;
+}
+
+input#dislike:hover{
+  background-color: orange;
+  color: white;
 }
 
 #artist_profile {
