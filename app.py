@@ -9,6 +9,8 @@ from flask_login import UserMixin, LoginManager, login_user, login_required, cur
 from werkzeug.security import generate_password_hash, check_password_hash
 import numpy as np
 
+import json
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
@@ -21,12 +23,22 @@ class user(UserMixin, db.Model):
    password = db.Column(db.String(100))
    center1 = db.Column(db.String(700))
    center2 = db.Column(db.String(700))
+   progress_val = db.Column(db.Integer)
+   yes_num = db.Column(db.Integer)
+   no_num = db.Column(db.Integer)
+   list1 = db.Column(db.String(500))
+   list2 = db.Column(db.String(500))
 
    def __init__(self, username, password, center1, center2):
        self.username = username
        self.password = password
        self.center1 = center1
        self.center2 = center2
+       self.progress_val = 0
+       self.yes_num = 0
+       self.no_num = 0
+       self.list1 = ""
+       self.list2 = ""
 
 
 @app.route('/', methods = ['GET', 'POST'])
@@ -58,13 +70,6 @@ def login():
     return render_template("login.html")
 
  
-progress_val = 0
-yes_num = 0
-no_num = 0
- 
-store_ids_yes = []
-    
-store_ids_no = [] 
     
 
 @app.route('/poll', methods = ['GET', 'POST'])
@@ -72,39 +77,50 @@ store_ids_no = []
 
 
 def poll():
-    song_id, preview_url, image_url = get_rand_song()
+   song_id, preview_url, image_url = get_rand_song()
     
-    data = [song_id, preview_url, image_url, progress_val]
+   data = [song_id, preview_url, image_url, current_user.progress_val]
 
-    if request.method == 'POST':
+   if request.method == 'POST':
         
-        if request.form['submit_button'] == 'YES':
-            if yes_num < 5:
-                yes_num += 1
-                progress_val += 10
-                store_ids_yes.append(song_id)
-        elif request.form['submit_button'] == 'NO':
-            if no_num < 5:
-                no_num += 1
-                progress_val += 10
-                store_ids_no.append(song_id)
-        data = [song_id, preview_url, image_url, progress_val]
-        
-        if yes_num >= 5 and no_num >= 5:
-            current_user.center1 = str(calculate_center(store_ids_yes));
-            current_user.center2 = str(calculate_center(store_ids_no));
+      if request.form['submit_button'] == 'YES':
+         if yes_num < 5:
+            current_user.yes_num += 1
+            current_user.progress_val += 10
+            lst = []
+            if current_user.list1 == "":
+               lst = [song_id]
+            else:
+               lst = json.loads(current_user.list1)
+               lst.append(song_id)
+            current_user.list1 = json.dumps(lst)
             db.session.commit()
-            progress_val = 0
-            yes_num = 0
-            no_num = 0
-            store_ids_yes = []
-            store_ids_no = [] 
-            return redirect(url_for("results"))
-        else:
-            return render_template("poll.html", data=data)
+      elif request.form['submit_button'] == 'NO':
+         if no_num < 5:
+            current_user.no_num += 1
+            current_user.progress_val += 10
+            lst = []
+            if current_user.list2 == "":
+               lst = [song_id]
+            else:
+               lst = json.loads(current_user.list2)
+               lst.append(song_id)
+            current_user.list2 = json.dumps(lst)
+            db.session.commit()
+      data = [song_id, preview_url, image_url, current_user.progress_val]
+        
+      if current_user.yes_num >= 5 and current_user.no_num >= 5:
+         lst1 = json.loads(current_user.list1)
+         lst2 = json.loads(current_user.list2)
+         current_user.center1 = str(calculate_center(lst1));
+         current_user.center2 = str(calculate_center(lst2));
+         db.session.commit()
+         return redirect(url_for("results"))
+      else:
+         return render_template("poll.html", data=data)
 
-    return render_template("poll.html", data=data)
-    
+   return render_template("poll.html", data=data)
+ 
 
 
 @app.route('/results')
