@@ -84,7 +84,7 @@ def poll():
    if request.method == 'POST':
         
       if request.form['submit_button'] == 'YES':
-         if yes_num < 5:
+         if current_user.yes_num < 5:
             current_user.yes_num += 1
             current_user.progress_val += 10
             lst = []
@@ -96,7 +96,7 @@ def poll():
             current_user.list1 = json.dumps(lst)
             db.session.commit()
       elif request.form['submit_button'] == 'NO':
-         if no_num < 5:
+         if current_user.no_num < 5:
             current_user.no_num += 1
             current_user.progress_val += 10
             lst = []
@@ -112,6 +112,8 @@ def poll():
       if current_user.yes_num >= 5 and current_user.no_num >= 5:
          lst1 = json.loads(current_user.list1)
          lst2 = json.loads(current_user.list2)
+         print(lst1)
+         print(lst2)
          current_user.center1 = str(calculate_center(lst1));
          current_user.center2 = str(calculate_center(lst2));
          db.session.commit()
@@ -127,14 +129,14 @@ def poll():
 @login_required
 def results():
     
-    data = get_friends_list(current_user.center1, current_user.center2)
+    data = get_friends_list(current_user.center1, current_user.center2, user.query.all())
 
-    return render_template('results_page.html', data=data)
+    return render_template('result_page.html', data=data)
 
 
-def get_friends_list(center1, center2):
+def get_friends_list(center1, center2, all_data):
 
-    all_data = user.query.all()
+    #all_data = user.query.all()
 
     dist1 = []
     dist2 = []
@@ -143,15 +145,18 @@ def get_friends_list(center1, center2):
     center2 = np.fromstring(center2[1:-1], dtype=np.float, sep=' ')
     
     for user in all_data:
-        
-        u_cent1 = user.center1
-        u_cent2 = user.center2
+       
+       u_cent1 = user.center1
+       u_cent2 = user.center2
 
-        u_cent1 = np.fromstring(u_cent1[1:-1], dtype=np.float, sep=' ')
-        u_cent2 = np.fromstring(u_cent2[1:-1], dtype=np.float, sep=' ')
-        
-        dist1.append((user.username, np.linalg.norm(center1 - u_cent1)))
-        dist2.append((user.username, np.linalg.norm(center2 - u_cent2)))
+
+       u_cent1 = np.fromstring(u_cent1[1:-1], dtype=np.float, sep=' ')
+       u_cent2 = np.fromstring(u_cent2[1:-1], dtype=np.float, sep=' ')
+
+       if u_cent1.shape[0] == center1.shape[0]:
+          dist1.append((user.username, np.linalg.norm(center1 - u_cent1)))
+       if u_cent2.shape[0] == center2.shape[0]:
+          dist2.append((user.username, np.linalg.norm(center2 - u_cent2)))
 
     dist1.sort(key=lambda i:i[1], reverse=True)
     dist2.sort(key=lambda i:i[1], reverse=True)
