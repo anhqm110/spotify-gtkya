@@ -5,10 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="description" content="Polling Page" />
     <meta name="author" content="" />
-    <link href="style.css" rel="stylesheet" />
+    <link href="../static/styles/style.css" rel="stylesheet" />
     <script src="../progress_bar.js"></script>
   </head>
-
+<!--
   <body id="poll_body">
       <div id="poll_content">
         <div id="artist_profile">
@@ -29,5 +29,28 @@
           </div>
       </div>
   </body>
+-->
 
+  <body id="poll_body">
+    <div id="poll_content">
+      <form id="poll_form" method=POST>
+        <div id="song_profile">
+          <input type="button" id="play_button" value="play">
+        </div>
+  
+        <div id="option_bar">
+          <h1 id="like-display">0</h1>
+          <input type="submit" name="submit_button" class="option_buttons" id="like" onclick="incrementLike()" value="YES"><br>
+          <h1 id="dislike-display">0</h1>
+          <input type="submit" name="submit_button" class="option_buttons" id="dislike" onclick="incrementDislike()" value="NO"><br>
+        </div>
+        <!--
+        <div id="completion_bar">
+          <div id="my_completion_bar" style="width:1%">
+          </div>
+        </div>
+      -->
+      </form>
+    </div>
+  </body>
 </html>
