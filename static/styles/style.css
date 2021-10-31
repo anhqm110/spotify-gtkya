@@ -121,6 +121,7 @@ button {
   border: none;
   border-radius: 20px;
   padding: 10px;
+  width: 100px;
   transition-duration: 0.4s;
   cursor: pointer;
 }
