@@ -117,7 +117,7 @@ button {
 }
 
 .song_buttons {
-  font-size:2rem;
+  font-size: 2rem;
   border: none;
   border-radius: 20px;
   padding: 10px;
@@ -127,12 +127,12 @@ button {
 }
 
 input#play_button:hover {
-  background-color:var(--clr-green-dark);
+  background-color: var(--clr-green-dark);
   color: white;
 }
 
 input#pause_button:hover {
-  background-color:orange;
+  background-color: orange;
   color: white;
 }
 
@@ -167,20 +167,17 @@ input#pause_button:hover {
   cursor: pointer;
 }
 
-input#like:hover{
+input#like:hover {
   background-color: var(--clr-green-dark);
   color: white;
 }
 
-input#dislike:hover{
+input#dislike:hover {
   background-color: orange;
   color: white;
 }
 
-#artist_profile {
-  display: flex;
-  align-self: flex-start;
-  position: relative;
-  justify-items: center;
-  align-items: center;
+.show_result {
+  font-size: 3rem;
+  margin: 10px;
 }

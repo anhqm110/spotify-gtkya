@@ -9,12 +9,23 @@
     <link href="../static/styles/style.css" rel="stylesheet" />
   </head>
 
-  <body>
-    <p id="result_likes">Your likes are:</p>
-    <p id="result_dislikes">Your dislikes are:</p>
-    <p id="show_spotify_friend">
-      Show spotify friend here
-      <a>UserName</a>
-    </p>
+  <body class="show_result">
+    <h1 id="show_similar_taste" class="show_result">
+      Friends with similar taste:
+    </h1>
+    {% for good in data[0] %}
+    <tr>
+      <td>{{good[0]}}</td>
+    </tr>
+    {% endfor %}
+    <br />
+    <h1 id="show_similar_distaste" class="show_result">
+      Friends with similar taste:
+    </h1>
+    {% for bad in data[1] %}
+    <tr>
+      <td>{{bad[0]}}</td>
+    </tr>
+    {% endfor %}
   </body>
 </html>
