@@ -57,20 +57,21 @@ def login():
 
     return render_template("login.html")
 
-
+ 
+progress_val = 0
+yes_num = 0
+no_num = 0
+ 
+store_ids_yes = []
+    
+store_ids_no = [] 
+    
 
 @app.route('/poll', methods = ['GET', 'POST'])
 @login_required
 
 
 def poll():
-    progress_val = 0
-    yes_num = 0
-    no_num = 0
-
-    store_ids_yes = []
-
-    store_ids_no = []
     song_id, preview_url, image_url = get_rand_song()
     
     data = [song_id, preview_url, image_url, progress_val]
@@ -93,6 +94,11 @@ def poll():
             current_user.center1 = str(calculate_center(store_ids_yes));
             current_user.center2 = str(calculate_center(store_ids_no));
             db.session.commit()
+            progress_val = 0
+            yes_num = 0
+            no_num = 0
+            store_ids_yes = []
+            store_ids_no = [] 
             return redirect(url_for("results"))
         else:
             return render_template("poll.html", data=data)
