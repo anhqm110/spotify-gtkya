@@ -13,13 +13,17 @@
     <h1 id="show_similar_taste">Friends with similar taste:</h1>
     <ol class="list_user">
       {% for i in range(5) %}
+      {% if i < data[0]|length %}
       <li>{{data[0][i][0]}}</li>
+      {% endif %}
       {% endfor %}
     </ol>
     <h1 id="show_similar_distaste">Friends with similar distastes:</h1>
     <ol class="list_user">
       {% for i in range(5) %}
+      {% if i < data[1]|length %}
       <li>{{data[1][i][0]}}</li>
+      {% endif %}
       {% endfor %}
     </ol>
   </body>

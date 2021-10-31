@@ -112,8 +112,6 @@ def poll():
       if current_user.yes_num >= 5 and current_user.no_num >= 5:
          lst1 = json.loads(current_user.list1)
          lst2 = json.loads(current_user.list2)
-         print(lst1)
-         print(lst2)
          current_user.center1 = str(calculate_center(lst1));
          current_user.center2 = str(calculate_center(lst2));
          db.session.commit()
@@ -160,7 +158,6 @@ def get_friends_list(center1, center2, all_data):
 
     dist1.sort(key=lambda i:i[1], reverse=True)
     dist2.sort(key=lambda i:i[1], reverse=True)
-    
 
     return (dist1, dist2)
 
