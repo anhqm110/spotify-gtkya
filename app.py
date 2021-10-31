@@ -6,13 +6,15 @@ from songs import *
 
 from flask_login import UserMixin, LoginManager, login_user, login_required, current_user
 
+from werkzeug.security import generate_password_hash, check_password_hash
 import numpy as np
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp.test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 
 db = SQLAlchemy(app)
+
 class user(UserMixin, db.Model):
    id = db.Column('user_id', db.Integer, primary_key = True)
    username = db.Column(db.String(100), unique=True)
@@ -35,8 +37,10 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        is_user = User.query.filter_by(username=username).first()
+        is_user = user.query.filter_by(username=username).first()
 
+        print(username)
+        print(password)
 
         if is_user:
             if check_password_hash(is_user.password, password):
@@ -49,7 +53,9 @@ def login():
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user)
-    return redirect(url_for('poll'))
+        return redirect(url_for('poll'))
+
+    return render_template("login.html")
 
 
 
@@ -132,4 +138,14 @@ def get_friends_list(center1, center2):
 
 if __name__ == '__main__':
     db.create_all()
+
+    app.secret_key = 'akskfjoadjfjaofjs'
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    login_manager.login_view = 'login'
+
+    @login_manager.user_loader
+    def load_user(userid):
+       return user.query.get(int(userid))
+
     app.run()
